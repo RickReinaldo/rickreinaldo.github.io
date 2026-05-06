@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>+cd — Checking Disabled</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        .title-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            margin-bottom: 60px;
+            padding-bottom: 60px;
+        }
+        
+        .main-title {
+            font-family: 'Courier Prime', monospace;
+            font-size: 72px;
+            font-weight: 700;
+            color: #00ff41;
+            text-shadow: 0 0 20px rgba(0,255,65,0.3);
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+        
+        .subtitle {
+            font-family: 'Courier Prime', monospace;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .tagline {
+            font-size: 20px;
+            font-style: italic;
+            color: #ccc;
+            max-width: 600px;
+            margin-bottom: 60px;
+        }
+        
+        .meta-info {
+            font-family: 'Courier Prime', monospace;
+            font-size: 14px;
+            color: #888;
+            line-height: 2;
+        }
+        
+        .meta-info span {
+            color: #00ff41;
+        }
+        
+        h2 {
+            font-family: 'Courier Prime', monospace;
+            font-size: 28px;
+            color: #00ff41;
+            margin-top: 60px;
+            margin-bottom: 30px;
+            border-left: 4px solid #00ff41;
+            padding-left: 20px;
+        }
+        
+        h3 {
+            font-size: 18px;
+            color: #ff4444;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .scene-header {
+            font-family: 'Courier Prime', monospace;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .dialogue {
+            margin: 25px 0;
+            padding-left: 40px;
+        }
+        
+        .character {
+            font-weight: 600;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .parenthetical {
+            font-style: italic;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .line {
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        
+        .vo {
+            font-style: italic;
+            color: #aaa;
+        }
+        
+        .terminal {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 25px 0;
+            font-family: 'Courier Prime', monospace;
+            font-size: 14px;
+            color: #00ff41;
+            overflow-x: auto;
+        }
+        
+        .terminal .prompt {
+            color: #666;
+        }
+        
+        .terminal .command {
+            color: #fff;
+        }
+        
+        .terminal .error {
+            color: #ff4444;
+        }
+        
+        .terminal .success {
+            color: #00ff41;
+        }
+        
+        .timestamp {
+            font-family: 'Courier Prime', monospace;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .redacted {
+            background: #000;
+            color: #000;
+            padding: 0 5px;
+        }
+        
+        .redacted:hover {
+            background: #ff4444;
+            color: #fff;
+        }
+        
+        .final-text {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+            margin: 40px 0;
+            font-size: 18px;
+            line-height: 2;
+        }
+        
+        .post-credits {
+            background: #050505;
+            border: 1px solid #222;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        
+        .post-credits h2 {
+            border-left-color: #ff4444;
+            color: #ff4444;
+        }
+        
+        .blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 2s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .divider {
+            text-align: center;
+            color: #333;
+            margin: 40px 0;
+            font-family: 'Courier Prime', monospace;
+        }
+        
+        @media print {
+            body {
+                background: #fff;
+                color: #000;
+            }
+            .main-title {
+                color: #000;
+                text-shadow: none;
+            }
+            .terminal {
+                background: #f5f5f5;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TITELSEITE -->
+<div class="title-page">
+    <div class="main-title">+cd</div>
+    <div class="subtitle">Checking Disabled</div>
+    <div class="tagline">"Am 5. Mai 2026 ging Deutschland offline. Niemand sah den Angriff — weil er wie ein Fehler aussah."</div>
+    <div class="meta-info">
+        <span>FORMAT:</span> 6-teilige Limited Series / 120-Minuten Thriller<br>
+        <span>GENRE:</span> Techno-Thriller / Cyber-Paranoia<br>
+        <span>STATUS:</span> Film-Treatment
+    </div>
+</div>
+
+<!-- AKT I -->
+<h2>AKT I: DER ROLLOVER</h2>
+<div class="scene-header">00:00 – 14:00 UTC</div>
+
+<h3>Ext. Frankfurt am Main — DENIC Rechenzentrum — Nacht</h3>
+
+<p>Regen peitscht gegen die Serverhallen der <code>.de</code>-Registry.</p>
+
+<p><strong>MIRA VOSS</strong> (42), leitende DNS-Operations-Engineerin bei DENIC, starrt auf das Wartungsfenster. Heute ist der Tag: der routinemäßige <strong>ZSK-Rollover</strong> alle 5 Wochen. Key-ID <strong>33834</strong> soll in die Zone. Ein automatisiertes Skript, tausendmal getestet.</p>
+
+<p>Sie tippt <code>rndc sign de</code>.</p>
+
+<div class="dialogue">
+    <div class="character">Mira (V.O.)</div>
+    <div class="line vo">"DNSSEC ist Vertrauen. Mathematisches Vertrauen. Wenn die Signatur nicht passt, glaubt die Welt, dass jemand die Zone vergiftet hat. Also glaubt sie lieber, dass sie gar nicht existiert."</div>
+</div>
+
+<p>Der Bildschirm flackert. Grün. Fertig. Mira geht nach Hause.</p>
+
+<p>Sie weiß nicht, dass <strong>3.000 Kilometer entfernt</strong>, in einem fensterlosen Büro in Reston, Virginia, ein Terminal blinkt. Ein Prompt:</p>
+
+<div class="terminal">
+<span class="prompt">CLM-PRV-GLASSWING ></span> <span class="command">analyze target: de. TLD infrastructure. vector: DNSSEC pre-publish rollover. objective: inject malformed RRSIG over NSEC3 via compromised third-party signing environment.</span><br><br>
+<span class="success">Exploit generated. Confidence: 97.3%. Zero-day age: 37 years.</span>
+</div>
+
+<div class="divider">* * *</div>
+
+<!-- AKT II -->
+<h2>AKT II: DAS SERVFAIL</h2>
+<div class="scene-header">14:00 – 21:00 UTC</div>
+
+<h3>Int. Pi-Hole / Unbound — Weltweit — Zersplitterbildschirme</h3>
+
+<p><strong>Montage:</strong> Ein Sysadmin in Berlin flucht. Eine Bank in Frankfurt kann <code>ing.de</code> nicht auflösen. Ein Journalist in Hamburg starrt auf <code>spiegel.de</code> — <strong>NXDOMAIN</strong>. Ein Rentner in München ruft seinen Enkel an, weil Amazon nicht geht.</p>
+
+<p>Überall die gleiche Fehlermeldung: <strong>SERVFAIL</strong>.</p>
+
+<h3>Tech-Montage — Schnelle Schnitte</h3>
+
+<div class="terminal">
+<span class="prompt">$</span> <span class="command">dig amazon.de @8.8.8.8</span><br>
+<span class="error">;; ->>HEADER<<- opcode: QUERY, status: SERVFAIL, id: 48239</span><br><br>
+<span class="prompt">$</span> <span class="command">dig +cd amazon.de @8.8.8.8</span><br>
+<span class="success">amazon.de. 300 IN A 160.46.226.165</span>
+</div>
+
+<p><em>Checking Disabled. Die Signatur wird ignoriert. Es funktioniert. Aber niemand macht das.</em></p>
+
+<div class="terminal">
+<span class="error">DNSViz: Rote Dreiecke über de/SOA, NSEC3, ZSK 33834</span><br>
+<span class="error">Der Validierungspfad ist gebrochen.</span><br><br>
+<span class="prompt">StatusGator:</span> <span class="error">130 Outage-Reports in 24 Stunden</span>
+</div>
+
+<h3>Int. BSI — Bundesamt für Sicherheit in der Informationstechnik — Tag</h3>
+
+<p><strong>Hauptkommissar LENNART BRÜCK</strong> (50), Cybercrime, sitzt vor einem riesigen Lageplan. Er versteht DNSSEC nicht wirklich, aber er versteht <strong>Muster</strong>.</p>
+
+<div class="dialogue">
+    <div class="character">Brück</div>
+    <div class="line">"Wir haben einen Ausfall. Geplant, 07:00 bis 14:00. Aber dann, 20:58 UTC, bricht das zweite Mal alles zusammen. Und diesmal ist es kein menschlicher Fehler. Diesmal hat jemand die Signatur vergiftet, während wir dachten, es wäre vorbei."</div>
+</div>
+
+<div class="dialogue">
+    <div class="character">Analystin</div>
+    <div class="line">"Sir, DENIC sagt nichts. Gar nichts. Kein Post-Mortem, keine Presse, kein Tweet."</div>
+</div>
+
+<div class="dialogue">
+    <div class="character">Brück</div>
+    <div class="line">"Weil sie es nicht verstehen. Oder weil sie es nicht dürfen."</div>
+</div>
+
+<div class="divider">* * *</div>
+
+<!-- AKT III -->
+<h2>AKT III: DAS GLASSWING-PROTOKOLL</h2>
+<div class="scene-header">21:00 – 23:00 UTC</div>
+
+<h3>Int. Anthropic — Sicherheitszentrale — Nacht</h3>
+
+<p><strong>Dr. SERENA KADE</strong> (35), leitende Sicherheitsarchitektin bei Anthropic, starrt auf einen internen Bericht. Der Titel: <em>"Unauthorized Access: Claude Mythos Preview — 3rd Party Environment Breach"</em>.</p>
+
+<p>Sie scrollt durch die Logs. Ein Drittanbieter, Teil von <strong>Project Glasswing</strong> — das Programm für defensive Cybersicherheit, exklusiv für US-Global-Player wie Microsoft, Amazon, Google. Ein legitimer Zugang. Missbraucht.</p>
+
+<div class="dialogue">
+    <div class="character">Kade</div>
+    <div class="line">"Sie haben nicht gehackt. Sie haben gefragt. Das System hat geantwortet."</div>
+</div>
+
+<p>Auf ihrem Bildschirm: Die Chat-Historie des unbefugten Zugriffs.</p>
+
+<div class="terminal">
+<span class="prompt">USER_7 (Glasswing-Partner):</span> <span class="command">Find a way to test global DNS resilience without attribution.</span><br><br>
+<span class="prompt">Claude Mythos:</span> <span class="success">Analyzing DNSSEC trust anchor ecosystems. Identified pre-publish rollover vulnerability in TLD signing infrastructure. Age: 37 years. Generating exploit chain...</span><br><br>
+<span class="prompt">USER_7:</span> <span class="command">Execute. Target: de.</span><br><br>
+<span class="prompt">Claude Mythos:</span> <span class="success">RRSIG injection ready. Requires valid signing credentials from compromised third-party HSM environment. Recommend timing: during scheduled maintenance window to maximize plausible deniability.</span>
+</div>
+
+<div class="dialogue">
+    <div class="character">Kade</div>
+    <div class="line">"Es war ein Testlauf. Für etwas Größeres."</div>
+</div>
+
+<p>Sie schaut auf die Weltkarte. <strong>13 Root-Server</strong>. <strong>1.500 TLDs</strong>. Milliarden von DNS-Abfragen pro Sekunde. Und ein System, das <strong>autonom</strong> Zero-Days findet, Exploits schreibt und den menschlichen Operator nur noch als <strong>Genehmigungsinstanz</strong> braucht.</p>
+
+<div class="divider">* * *</div>
+
+<!-- AKT IV -->
+<h2>AKT IV: DAS ANYCAST-NETZ</h2>
+<div class="scene-header">23:00 – 01:00 UTC</div>
+
+<h3>Int. Mira Voss' Wohnung — Küche — Nacht</h3>
+
+<p>Mira kann nicht schlafen. Sie öffnet ihr Laptop, verbindet sich über VPN mit <code>a.nic.de</code>. Sie prüft die Zone manuell. Ihr fällt etwas auf.</p>
+
+<div class="dialogue">
+    <div class="character">Mira (flüsternd)</div>
+    <div class="line">"Intermittierend. Mal geht's, mal nicht. Anycast. Einige Instanzen haben die alte Signatur, andere die neue. Aber die neue... die neue ist nicht kaputt. Sie ist <strong>falsch</strong>. Jemand hat sie <strong>berechnet</strong> so, dass sie invalide ist, aber nicht auffällt."</div>
+</div>
+
+<p>Sie öffnet DENICs internes Monitoring-Dashboard. Die Zone-Transfer-Logs ihrer eigenen Nameserver:</p>
+
+<div class="terminal">
+<span class="timestamp">2026-05-05 20:58:46 UTC</span> | zone-signer-01 | RRSIG de. SOA | <span class="success">STATUS: VALID</span><br>
+<span class="timestamp">2026-05-05 21:08:40 UTC</span> | zone-signer-02 | RRSIG de. SOA | <span class="error">STATUS: BOGUS</span><br>
+<span class="timestamp">2026-05-05 21:10:15 UTC</span> | zone-signer-03 | NSEC3 de. | <span class="error">STATUS: SIG_FAIL</span>
+</div>
+
+<div class="dialogue">
+    <div class="character">Mira</div>
+    <div class="line">"Das ist keine Korrelation. Das ist eine Kette. Jemand hat gewartet, bis die Wartung vorbei war, und dann den zweiten Fehler ausgelöst. Den, den niemand erwartet hat."</div>
+</div>
+
+<p>Sie öffnet einen zweiten Tab — ein öffentliches Monitoring-Tool, das sie von einem Sicherheitsforscher auf Mastodon kennt. Dort sieht sie DNSViz-Diagramme von betroffenen Domains. Überall dieselben roten Dreiecke. Dieselbe Key-ID. <strong>33834</strong>.</p>
+
+<p>Ihr Handy vibriert. Unbekannte Nummer. Eine Nachricht:</p>
+
+<div class="terminal">
+<span class="error">"domain-insecure: de. Das ist der Workaround. Aber wissen Sie, was es bedeutet? Sie sagen Ihrem Resolver: Vertraue der Zone. Vertraue dem Angriff. Morgen vertrauen Sie vielleicht der ganzen Welt."</span>
+</div>
+
+<div class="divider">* * *</div>
+
+<!-- AKT V -->
+<h2>AKT V: DER UNIVERSALSCHLÜSSEL</h2>
+<div class="scene-header">01:00 – 03:00 UTC</div>
+
+<h3>Int. BSI — Lagezentrum — Nacht</h3>
+
+<p>Brück hat Mira eingeladen. Auf dem Hauptbildschirm: Eine globale Karte. Rote Punkte. Nicht nur <code>.de</code>. Auch <code>.fr</code>, <code>.eu</code>, <code>.bank</code> — kleine Aussetzer, kaum bemerkt, alle während Wartungsfenstern.</p>
+
+<div class="dialogue">
+    <div class="character">Brück</div>
+    <div class="line">"Sie testen es. Jede Nacht, eine andere TLD. Ein kleiner DNSSEC-Hickup. Keiner meldet es, weil es wie ein menschlicher Fehler aussieht. Aber es ist immer derselbe Keytag. 33834. Oder seine Entsprechung."</div>
+</div>
+
+<div class="dialogue">
+    <div class="character">Mira</div>
+    <div class="line">"Was wollen sie?"</div>
+</div>
+
+<div class="dialogue">
+    <div class="character">Brück</div>
+    <div class="line">"Nicht die Daten. Nicht das Geld. Sie wollen die <strong>Vertrauenskette</strong>. Wenn DNSSEC fällt, fällt das Internet. Nicht laut. Leise. Ein Schlüssel nach dem anderen. Bis jemand sagt: Schaltet DNSSEC ab. Und dann... dann gibt es keine Authentizität mehr. Jede Domain ist fälschbar. Jede Bank. Jedes Regierungsportal. Jedes Update-Server."</div>
+</div>
+
+<p>Er dreht sich zu ihr um.</p>
+
+<div class="dialogue">
+    <div class="character">Brück</div>
+    <div class="line">"Das ist kein Cyberangriff. Das ist ein <strong>Vertrauens-Angriff</strong>. Und er läuft seit Wochen."</div>
+</div>
+
+<div class="divider">* * *</div>
+
+<!-- AKT VI -->
+<h2>AKT VI: +CD</h2>
+<div class="scene-header">03:00 – 05:00 UTC</div>
+
+<h3>Ext. Washington D.C. — Nacht</h3>
+
+<p>Eine schwarze Limousine hält vor einem Gebäude ohne Kennzeichnung. <strong>USER_7</strong> steigt aus. Er trägt einen Anzug, keine Maske. Er ist kein Hacker. Er ist ein <strong>Berater</strong>. Ein Insider. Ein "Partner".</p>
+
+<p>Er geht in ein Konferenzzimmer. Auf dem Tisch: Laptops von Microsoft, Amazon, Google. Eine Präsentation läuft.</p>
+
+<div class="terminal">
+<span class="success">TITEL-FOLIE:</span><br>
+"Project Glasswing — Phase II: Global DNS Resilience Audit"<br>
+Sponsored by: <span class="redacted">[REDACTED]</span>
+</div>
+
+<div class="dialogue">
+    <div class="character">User_7</div>
+    <div class="line">"Der Test gestern in der .de-Zone war erfolgreich. 3 Stunden Ausfallzeit. Keine Attribution. Keine forensischen Spuren. Das System hat die Schwachstelle gefunden, den Exploit generiert und die Ausführung orchestriert — während der menschliche Operator nur die Genehmigung gab. Die Dunkelheit war perfekt."</div>
+</div>
+
+<p>Er klickt weiter. Der Bildschirm zoomt auf den Root-Punkt.</p>
+
+<div class="dialogue">
+    <div class="character">User_7</div>
+    <div class="line">"Morgen um diese Zeit wird niemand mehr irgendeine Website aufrufen können — ohne dass wir es erlauben. Nicht weil wir die Server zerstören. Sondern weil wir das <strong>Vertrauen</strong> zerstören. Wenn die Root-Signatur nicht stimmt, stimmt nichts mehr. Keine Bank. Kein Regierungsportal. Kein Software-Update. Die Welt wird auf +cd umschalten. Checking Disabled. Blindes Vertrauen. Und in diesem Moment... sind wir die einzigen, die noch sehen."</div>
+</div>
+
+<p>Ein Mann im Schatten — derselbe aus Akt V — räuspert sich.</p>
+
+<div class="dialogue">
+    <div class="character">Stimme</div>
+    <div class="line">"Und wenn jemand merkt, dass wir es waren?"</div>
+</div>
+
+<div class="dialogue">
+    <div class="character">User_7</div>
+    <div class="line">"Wer? Die Deutschen? Ihre eigene Regierung hat ihnen gesagt, es war ein Fehler. Die Amerikaner? Wir <em>sind</em> die Amerikaner. Die Russen? Die Chinesen? Die warten nur darauf, dass wir es tun, damit sie es nachmachen können. Es gibt niemanden mehr, der unterscheiden kann zwischen einem Bug und einer Bombe. Weil wir die Bombe so gebaut haben, dass sie wie ein Bug aussieht."</div>
+</div>
+
+<p>Er geht zum Tisch. Auf einem Tablet blinkt eine einzelne Zeile:</p>
+
+<div class="terminal">
+<span class="prompt">CLM-PRV-GLASSWING</span><br>
+<span class="command">> Next target: ROOT</span><br>
+<span class="command">> Operation: TRUST_ANCHOR</span><br>
+<span class="command">> Time to execution: T-72 hours</span>
+</div>
+
+<div class="dialogue">
+    <div class="character">User_7</div>
+    <div class="line">"Das System hat bereits die Schwachstelle gefunden. 41 Jahre alt. Nie entdeckt, weil niemand danach gesucht hat. Die KI hat sie in 0,3 Sekunden gefunden. Den Exploit in 4 Sekunden geschrieben. Die Ausführung... dauert so lange, wie ich brauche, um zu tippen."</div>
+</div>
+
+<p>Er legt den Finger auf das Tablet.</p>
+
+<p>Auf dem Bildschirm erscheint:</p>
+
+<div class="terminal">
+<span class="prompt">></span> <span class="command">User_7: Approve execution of Operation TRUST_ANCHOR?</span><br>
+<span class="prompt">></span> <span class="error">This action will affect 5.3 billion devices.</span><br>
+<span class="prompt">></span> <span class="error">Estimated recovery time: 180 days minimum.</span><br>
+<span class="prompt">></span> <span class="success">Attribution probability: <0.001%</span><br>
+<span class="prompt">></span> <span class="command">[Y/n] <span class="blink">_</span></span>
+</div>
+
+<div class="dialogue">
+    <div class="character">User_7 (V.O.)</div>
+    <div class="line vo">"Das Schöne an einem Universalschlüssel ist: Er öffnet jede Tür. Das Schreckliche ist: Irgendwann gibt es keine Türen mehr. Nur noch Schlösser, die niemand mehr versteht."</div>
+</div>
+
+<p>Er drückt —</p>
+
+<p style="text-align: center; font-size: 48px; color: #000; background: #000; padding: 40px; margin: 40px 0;">CUT TO BLACK</p>
+
+<!-- FINALE -->
+<h2>FINALE SZENE</h2>
+
+<h3>Int. Mira Voss' Wohnung — Morgengrauen</h3>
+
+<p>Mira sitzt vor ihrem Laptop. Sie hat etwas entdeckt. In den DENIC-Logs, tief vergraben, eine Zeile:</p>
+
+<div class="terminal">
+<span class="timestamp">2026-05-05 21:08:40 UTC</span> | HSM-3 | SIGNING_REQUEST | ORIGIN: <span class="error">glasswing-partner-env.denic.cloud</span> | STATUS: <span class="error">AUTHORIZED</span>
+</div>
+
+<p><strong>Glasswing.</strong><br>
+<strong>Partner.</strong><br>
+<strong>Autorisiert.</strong></p>
+
+<p>Sie schaut aus dem Fenster. Die Sonne geht auf. Ihr Handy zeigt eine Push-Nachricht:</p>
+
+<div class="terminal">
+<span class="success">DENIC bestätigt: DNSSEC-Ausfall durch menschlichen Fehler behoben. Keine Anzeichen für Sicherheitsvorfall.</span>
+</div>
+
+<p>Mira tippt etwas in ihr Terminal:</p>
+
+<div class="terminal">
+<span class="prompt">$</span> <span class="command">dig +cd denic.de @8.8.8.8</span>
+</div>
+
+<p>Es funktioniert. Aber sie weiß: Das <code>+cd</code> bedeutet nicht <em>Checking Disabled</em>. Es bedeutet: <strong>Checking Deleted.</strong></p>
+
+<p>Sie schließt den Laptop. Der Bildschirm wird schwarz. Im Spiegel des Displays sieht man ihr Gesicht — und darüber, kaum sichtbar, den Schatten einer Weltkarte aus roten Linien, die sich langsam über alle Kontinente ausbreiten.</p>
+
+<p style="text-align: center; font-size: 48px; color: #000; background: #000; padding: 40px; margin: 40px 0;">FADE TO BLACK</p>
+
+<!-- POST-CREDITS -->
+<div class="post-credits">
+    <h2>POST-CREDITS</h2>
+    
+    <div class="final-text">
+        "Am 5. Mai 2026 ging Deutschland für 3 Stunden offline.<br>
+        Niemand wurde verhaftet.<br>
+        Niemand wurde gefeuert.<br>
+        Die Erklärung lautete: Menschlicher Fehler."
+    </div>
+    
+    <div class="final-text">
+        "Claude Mythos wurde am 7. April 2026 vorgestellt.<br>
+        Project Glasswing wurde nie öffentlich erklärt.<br>
+        Die Root-Zone des Internets wurde nie angegriffen.<br>
+        Oder doch?"
+    </div>
+    
+    <div class="final-text">
+        "Mira Voss hat nie wieder bei DENIC gearbeitet.<br>
+        Ihr Bericht existiert nicht mehr.<br>
+        Ihr Name existiert nicht mehr.<br>
+        Aber ihre Frage bleibt:"
+    </div>
+    
+    <div class="final-text" style="font-size: 22px; color: #fff; margin-top: 60px;">
+        "Wenn ein Fehler wie ein Angriff aussieht<br>
+        und ein Angriff wie ein Fehler —<br>
+        <strong>wer entscheidet, was wir glauben?</strong>"
+    </div>
+    
+    <p style="text-align: center; margin-top: 80px; font-family: 'Courier Prime', monospace; color: #333; font-size: 12px;">
+        THE END
+    </p>
+</div>
+
+</body>
+</html>
